@@ -1,0 +1,117 @@
+<!--
+    Inicio Menu Sidenav
+-->
+<nav class="teal darken-2">
+    <div class="nav-wrapper">
+        <ul class="left">
+            <li><a data-activates="slide-out" class="brand-logo"><i class="material-icons">menu</i></a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#/" ng-click="reload()"><i class="material-icons">refresh</i></a></li>
+            <li><a class="dropdown-button" data-activates="dropdown1"><i class="material-icons right">more_vert</i></a></li>
+        </ul>
+    </div>
+</nav>
+<ul id="slide-out" class="side-nav">
+    <li>
+        <div class="userView">
+            <img class="background" src="imgs/menu_drawer.jpg">
+            <a href="#!user"><img class="circle" ng-src="{{user.urlAvatar}}"></a>
+            <a href="#!name"><span class="white-text name">{{user.name}}</span></a>
+            <a href="#!email"><span class="white-text email">{{user.email}}</span></a>
+        </div>
+    </li>
+    <li><a href="#!"><i class="material-icons">attach_money</i>Fatura parcial</a></li>
+    <li><a href="#!"><i class="material-icons">remove_red_eye</i>Fique de olho!</a></li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li><a class="subheader">Opções</a></li>
+    <li><a class="waves-effect" href="#!"><i class="material-icons">power_settings_new</i>Sair</a></li>
+</ul>
+
+<ul id="dropdown1" class="dropdown-content">
+    <li><a href="#/">Ajuda</a></li>
+    <li><a href="#/">Contato</a></li>
+    <li class="divider"></li>
+    <li><a ng-click="logout()">Sair</a></li>
+</ul>
+
+<!--
+    Término Menu Sidenav
+-->
+<div class="col s12 l12">
+    <div class="row">
+        <div class="col l4">
+            <div class="card teal">
+                <div id="container" style="height: 300px; min-width: 310px"></div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">Gráfico de consumo total</span>
+                    <p>{{lastUpdate30}}</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="col l4">
+            <div class="card teal lighten-4">
+                <div style="min-width: 310px; height: 410px; margin: 0 auto">
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Medidor total</span>
+                        <p>{{lastUpdate}}</p>
+                    </div>
+                    <div id="container-speed" style="min-width: 310px; height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col l4">
+            <div class="card" style="background: #FF5252;">
+                <div id="container2" style="height: 300px; min-width: 310px"></div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">Gráfico de consumo por setor</span>
+                    <p>{{lastUpdate30}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col l6">
+                <div class="card" style="background: #B2DFDB;">
+                    <div id="container" style="height: 200px; min-width: 310px">
+                        Diagnóstico
+                        <div>
+                            <table class="striped">
+                                <thead>
+                                    <tr>
+                                        <th data-field="id">Sensor</th>
+                                        <th data-field="name">Setor Residencial</th>
+                                        <th data-field="name">Última atualização</th>
+                                        <th data-field="price">Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Lâmpadas e tomadas</td>
+                                        <td>{{sensor1.lastDate}}</td>
+                                        <td><i ng-show="sensor1.status" class="material-icons">done</i>
+                                            <i ng-show="!sensor1.status" class="material-icons">close</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Chuveiro e cozinha</td>
+                                        <td>{{sensor2.lastDate}}</td>
+                                        <td><i ng-show="sensor2.status" class="material-icons">done</i>
+                                            <i ng-show="!sensor2.status" class="material-icons">close</i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col l4">
+                <div am-time-ago="message.time | amParse:'YYYY.MM.DD HH:mm:ss'" class="col l6"></div>
+            </div>
+        </div>
+    </div>

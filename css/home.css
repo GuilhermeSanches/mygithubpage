@@ -1,0 +1,9 @@
+.backgroun{
+    background-color: #00796B;
+}
+nav .brand-logo i, nav .brand-logo [class^="mdi-"], nav .brand-logo [class*="mdi-"], nav .brand-logo i.material-icons{
+    margin-left: 10px !important;
+}
+.dropdown-content{
+    margin-top: 65px !important;
+}

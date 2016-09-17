@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<div ng-controller="LoginCtrl" ng-cloak>
+    <div class="login">
+        <h4 class="title-login">PAINEL</h4>
+        <a href="#/" ui-sref="/" class=" arrow-back material-icons">arrow_back</a>
+    </div>
+    <div class="hide-on-small-only row content-login" style="z-index: 9998; background: transparent;">
+        <form class="col l5 s10 offset-l1 offset-s1 content-form-login">
+            <div class="row">
+                <div class="col l12 s12 icon-account">
+                    <i class="icon-login large material-icons">person_pin</i>
+                    <h5 class="title-icon">LOGIN</h5>
+                </div>
+                <div class="input-field col s10 offset-s1">
+                    <input id="email" name="username" type="text" ng-model="user.username" class="validate">
+                    <label for="email">Usuário</label>
+                </div>
+                <div class="input-field col s10 offset-s1">
+                    <input id="password" name="pass" type="password" ng-model="user.pass" class="validate">
+                    <label for="password">Senha</label>
+                </div>
+                <div class="col s11">
+                    <span class="signup"> <a ui-sref="signup" href="#/signup">Esqueceu sua senha</a> </span>
+                </div>
+                <div class=" button-submit col s12 l12">
+                    <button ng-click="login(user)" class="btn waves-effect waves-light" type="submit" name="action">Entrar
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <form class="hide-on-small-only col l3 s10 offset-l2 offset-s1 content-form-login form-signup">
+            <span class="text-or">Ou</span>
+            <div class="row">
+                <div class="col l12 s12 icon-account">
+                    <i class="icon-signup medium material-icons">person_add</i>
+                    <h5 class="title-icon">CADASTRE-SE</h5>
+                </div>
+                <div class="input-field col s10 offset-s1">
+                    <input id="email" type="text" class="validate">
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-field col s10 offset-s1">
+                    <input id="tel" type="tel" class="validate">
+                    <label for="tel">Telefone</label>
+                </div>
+                <div class=" button-submit col s12 l12">
+                    <button class="btn waves-effect  red accent-2" type="submit" name="action">Enviar
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="hide-on-large-only row content-login" style="z-index: 9998; background: transparent;">
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs teal darken-2">
+                    <li class="tab col s6"><a class="active white-text" href="#login">Login</a></li>
+                    <li class="tab col s6 blue-text text-darken-2"><a class="white-text" href="#signup-mobile">Cadastre-se</a></li>
+                </ul>
+                <form id="login" class="col l4 s10 offset-l2 offset-s1 content-form-login  form-signup">
+                    <div class="row">
+                        <div class="col l12 s12 icon-account">
+                            <i class="icon-login medium material-icons">person_pin</i>
+                            <h5 class="title-icon">LOGIN</h5>
+                        </div>
+                        <div class="input-field col s10 offset-s1">
+                            <input id="email" type="text" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="input-field col s10 offset-s1">
+                            <input id="password" type="password" class="validate">
+                            <label for="password">Senha</label>
+                        </div>
+                        <div class="col s11">
+                            <span class="signup"> <a ui-sref="signup" href="#/signup">Esqueceu sua senha</a> </span>
+                        </div>
+                        <div class=" button-submit col s12 l12">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Entrar
+                        <i class="material-icons right">send</i>
+                    </button>
+                        </div>
+                    </div>
+                </form>
+                <form id="signup-mobile" class="col l3 s10 offset-l2 offset-s1 content-form-login form-signup">
+                    <div class="row">
+                        <div class="col l12 s12 icon-account">
+                            <i class="icon-signup medium material-icons">person_add</i>
+                            <h5 class="title-icon">CADASTRE-SE</h5>
+                        </div>
+                        <div class="input-field col s10 offset-s1">
+                            <input id="email" type="text" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="input-field col s10 offset-s1">
+                            <input id="tel" type="tel" class="validate">
+                            <label for="tel">Telefone</label>
+                        </div>
+                        <div class=" button-submit col s12 l12">
+                            <button class="btn waves-effect  red accent-2" type="submit" name="action">Enviar
+                        <i class="material-icons right">send</i>
+                    </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer class="login-footer">
+        <div class="left-section"> © TCC</div>
+        <div class="right-section"> Terms and Conditions Apply </div>
+    </footer>
+</div>
