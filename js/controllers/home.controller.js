@@ -336,14 +336,14 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
                 setInterval(function () {
                     // Speed
                     HomeService.getLastConsumtion().then(function (data) {
-                         $scope.lastUpdate = moment(data.data.result[0].date).format('D/M/Y, H:mm:ss');
+                        $scope.lastUpdate = moment(data.data.result[0].date).format('D/M/Y, H:mm:ss');
                         var chart = $('#container-speed').highcharts(),
                             point,
                             newVal,
                             inc, dataLabel;
 
                         if (chart) {
-                            point = chart.series[0].points[0];                                                        
+                            point = chart.series[0].points[0];
                             // inc = Math.round((Math.random() - 0.5) * 100);
                             // newVal = point.y + 10;
                             newVal = parseFloat(parseFloat(data.data.result[0].last_consumption).toFixed(4));
@@ -372,9 +372,9 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
                 var dateLimit = new Date(dateNow.setMinutes(dateNow.getMinutes() - 30));
                 $scope.sensor1.lastDate = moment(lastDateS1).format("D/M/Y, H:mm:ss");
                 $scope.sensor2.lastDate = moment(lastDateS2).format("D/M/Y, H:mm:ss");
-                $scope.lastUpdate30 = $scope.sensor1.lastDate > $scope.sensor2.lastDate ? $scope.sensor1.lastDate : $scope.sensor2.lastDate ;
+                $scope.lastUpdate30 = $scope.sensor1.lastDate > $scope.sensor2.lastDate ? $scope.sensor1.lastDate : $scope.sensor2.lastDate;
                 if (moment(lastDateS1).isAfter(dateLimit)) {
-                    $scope.sensor1.status = true;                    
+                    $scope.sensor1.status = true;
                 } else {
                     $scope.sensor1.status = false;
                 }
@@ -389,18 +389,22 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
                 data.data.result.forEach(function (element, index) {
                     var hour = new Date(element.date).getHours();
                     var date = new Date(element.date).setHours(hour - 3);
-                    if (index > 0) {
-                        if (date == array[array.length - 1][0]) {
-                            array[array.length - 1][1] += element.consumption;
+                    var hourLocale = new Date().getHours();
+                    if (moment(date).isAfter(new Date().setHours(hourLocale - 6))){
+                        if (array.length > 0) {
+                            if (date == array[array.length - 1][0]) {
+                                array[array.length - 1][1] += element.consumption;
+                            } else {
+                                var temp = [date, element.consumption];
+                                array.push(temp);
+                            }
                         } else {
-                            var temp = [date, element.consumption];
-                            array.push(temp);
+                            var temp2 = [date, element.consumption];
+                            array.push(temp2);
                         }
-                    } else {
-                        var temp2 = [date, element.consumption];
-                        array.push(temp2);
-                    }
 
+                    }
+                    
 
                 }, this);
                 // console.log(array);
