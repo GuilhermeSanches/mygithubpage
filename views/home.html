@@ -21,7 +21,9 @@
             <a href="#!email"><span class="white-text email">{{user.email}}</span></a>
         </div>
     </li>
+    <li><a href="#/"><i class="material-icons">home</i>Início</a></li>
     <li><a href="#!"><i class="material-icons">attach_money</i>Fatura parcial</a></li>
+    <li><a href="#/report"><i class="material-icons">date_range</i>Comparador de períodos</a></li>
     <li><a href="#!"><i class="material-icons">remove_red_eye</i>Fique de olho!</a></li>
     <li>
         <div class="divider"></div>
@@ -46,29 +48,29 @@
             <div class="card teal">
                 <div id="container" style="height: 300px; min-width: 310px"></div>
                 <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Gráfico de consumo total</span>
-                    <p>{{lastUpdate30}}</p>
+                    <span class="card-title activator white-text">Gráfico de consumo total</span>
+                    <p class="white-text">{{lastUpdate30}}</p>
                 </div>
             </div>
 
         </div>
         <div class="col l4">
-            <div class="card teal lighten-4">
+            <div class="card  green darken-2">
                 <div style="min-width: 310px; height: 410px; margin: 0 auto">
                     <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Medidor total</span>
-                        <p>{{lastUpdate}}</p>
+                        <span class="card-title activator white-text">Medidor total</span>
+                        <p class="white-text">{{lastUpdate}}</p>
                     </div>
                     <div id="container-speed" style="min-width: 310px; height: 300px;"></div>
                 </div>
             </div>
         </div>
         <div class="col l4">
-            <div class="card" style="background: #FF5252;">
+            <div class="card deep-purple darken-2">
                 <div id="container2" style="height: 300px; min-width: 310px"></div>
                 <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Gráfico de consumo por setor</span>
-                    <p>{{lastUpdate30}}</p>
+                    <span class="card-title activator white-text">Gráfico de consumo por setor</span>
+                    <p class="white-text">{{lastUpdate30}}</p>
                 </div>
             </div>
         </div>
@@ -110,8 +112,18 @@
                 </div>
 
             </div>
-            <div class="col l4">
-                <div am-time-ago="message.time | amParse:'YYYY.MM.DD HH:mm:ss'" class="col l6"></div>
+            <div class="col l6 offset-l6" style="position: fixed; bottom: 0;">
+                <div class="card-panel teal" style="width: 100%; height: 120px;">
+                    <div class="col l2">
+                        <a href="#!user"><img class="circle" ng-src="{{user.urlAvatar}}"></a>
+                    </div>
+                    <div class="col s10 white-text">Bem vindo de volta
+                        <div>
+                            <a href="#!name"><span class="white-text name">{{user.name}}</span></a>
+                        </div>
+                        <div><a href="#!email"><span class="white-text email">{{user.email}}</span></a></div>                       
+                    </div>
+                </div>
             </div>
         </div>
     </div>

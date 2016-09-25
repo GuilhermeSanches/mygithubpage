@@ -11,6 +11,12 @@ App.config(function ($routeProvider, $httpProvider, $mdThemingProvider) {
             access: { requiredAuthentication: true }
         })
 
+        .when('/report', {
+            templateUrl: 'views/reportDate.html',
+            controller: 'ReportCtrl',
+            access: { requiredAuthentication: true }
+        })
+
         .when('/login', {
             templateUrl: 'views/login.html',
             controller: 'LoginCtrl',

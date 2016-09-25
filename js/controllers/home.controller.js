@@ -361,8 +361,6 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
             });
         });
 
-
-
         $(function () {
             HomeService.getHistory().then(function (data) {
 
