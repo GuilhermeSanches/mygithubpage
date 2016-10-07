@@ -7,7 +7,9 @@
             <li><a data-activates="slide-out" class="brand-logo"><i class="material-icons">menu</i></a></li>
         </ul>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#/" ng-click="callReport()"><i class="material-icons">refresh</i></a></li>
+            <li>
+                <a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Atualize os gráficos" href="#/" ng-click="callReport()"><i class="material-icons">refresh</i></a>
+            </li>
             <li><a class="dropdown-button" data-activates="dropdown1"><i class="material-icons right">more_vert</i></a></li>
         </ul>
     </div>
@@ -56,13 +58,42 @@
         </div>
         <div class="col l4">
             <div class="card  green darken-2">
-                <div style="min-width: 310px; height: 410px; margin: 0 auto">
-                    <div class="card-content">
-                        <span class="card-title activator white-text">Medidor total</span>
-                        <p class="white-text">{{lastUpdate}}</p>
-                    </div>
-                    <div id="container-speed" style="min-width: 310px; height: 300px;"></div>
+                <div class="activator" style="min-width: 310px;  margin: 0 auto"> </div>
+                <div class="card-content">
+                    <span class="card-title activator white-text">Medidor total<i class="material-icons right">more_vert</i></span>
+                    <p class="white-text">{{lastUpdate}}</p>
                 </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">Configurações<i class="material-icons right">close</i></span>
+                    <p>Insira abaixo quanto você pretende gastar por dia em KW/h</p>
+                    <form action="">
+                        <div class="row">
+                            <form action="" name="formReport2" class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="valueKwh" type="text" class="validate">
+                                        <label for="valueKwh">Valor em KW/h</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">date_range</i>
+                                        <input id="valueDate" name="dateRange" type="date" class="datepicker">
+                                        <label for="icon_prefix">Data de início da medição</label>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <a ng-click="saveData()" class="waves-effect waves-light btn">Salvar</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </form>
+                </div>
+                <div id="container-speed" style="min-width: 310px; height: 300px;"></div>
+
             </div>
         </div>
         <div class="col l4">
@@ -112,6 +143,7 @@
                 </div>
 
             </div>
+
             <div class="col l6 offset-l6" style="position: fixed; bottom: 0;">
                 <div class="card-panel teal" style="width: 100%; height: 120px;">
                     <div class="col l2">
@@ -121,8 +153,15 @@
                         <div>
                             <a href="#!name"><span class="white-text name">{{user.name}}</span></a>
                         </div>
-                        <div><a href="#!email"><span class="white-text email">{{user.email}}</span></a></div>                       
+                        <div><a href="#!email"><span class="white-text email">{{user.email}}</span></a></div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col l4">
+                <div class="card teal">
+                    teste
                 </div>
             </div>
         </div>

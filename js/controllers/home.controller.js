@@ -34,6 +34,18 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
             $location.path("/login");
         };
 
+        $scope.saveData = function () {
+            var valueDate = window.document.getElementById('valueDate').value;
+            var valueKWH = window.document.getElementById('valueKwh').value;
+            var dayActual = new Date().getTime();
+            var dayChange = new Date(valueDate).getTime();
+            var a = moment(dayActual);
+            var b = moment(dayChange);
+            var diff = a.diff(b, 'days');
+            window.localStorage.setItem("diff", diff);
+            window.localStorage.setItem("kwh", valueKWH);
+        }
+
         /**
          * Dark theme for Highcharts JS
          * @author Torstein Honsi
@@ -245,121 +257,6 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
             maskColor: 'rgba(255,255,255,0.3)'
         };
 
-        $(function () {
-            HomeService.getLastConsumtion().then(function (data) {
-                $scope.lastUpdate = moment(data.data.result[0].date).format('D/M/Y, H:mm:ss');
-                var gaugeOptions = {
-
-                    chart: {
-                        type: 'solidgauge'
-                    },
-
-                    title: null,
-
-                    pane: {
-                        center: ['50%', '80%'],
-                        size: '140%',
-                        startAngle: -90,
-                        endAngle: 90,
-                        background: {
-                            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#fff',
-                            innerRadius: '60%',
-                            outerRadius: '100%',
-                            shape: 'arc'
-                        }
-                    },
-
-                    tooltip: {
-                        enabled: false
-                    },
-
-                    // the value axis
-                    yAxis: {
-                        stops: [
-                            [0.1, '#55BF3B'], // green
-                            [0.5, '#DDDF0D'], // yellow
-                            [0.9, '#DF5353'] // red
-                        ],
-                        lineWidth: 0,
-                        minorTickInterval: null,
-                        tickAmount: 2,
-                        title: {
-                            y: -70
-                        },
-                        labels: {
-                            y: 16
-                        }
-                    },
-
-                    plotOptions: {
-                        solidgauge: {
-                            dataLabels: {
-                                y: 5,
-                                borderWidth: 0,
-                                useHTML: true
-                            }
-                        }
-                    }
-                };
-                // Highcharts.setOptions(Highcharts.theme1);
-                // The speed gauge  
-                $('#container-speed').highcharts(Highcharts.merge(gaugeOptions, {
-                    yAxis: {
-                        min: 0,
-                        max: (Math.round(data.data.result[0].last_consumption) * 10),
-                        title: {
-                            text: 'KW/h consumido até último minuto'
-                        }
-                    },
-
-                    credits: {
-                        enabled: false
-                    },
-
-                    series: [{
-                        name: 'Speed',
-                        data: [parseFloat(parseFloat(data.data.result[0].last_consumption).toFixed(4))],
-                        dataLabels: {
-                            format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                            ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                            '<span style="font-size:12px;color:silver">kW/h</span></div>'
-                        },
-                        tooltip: {
-                            valueSuffix: ' kW/h'
-                        }
-                    }]
-
-                }));
-
-
-                // Bring life to the dials
-                setInterval(function () {
-                    // Speed
-                    HomeService.getLastConsumtion().then(function (data) {
-                        $scope.lastUpdate = moment(data.data.result[0].date).format('D/M/Y, H:mm:ss');
-                        var chart = $('#container-speed').highcharts(),
-                            point,
-                            newVal,
-                            inc, dataLabel;
-
-                        if (chart) {
-                            point = chart.series[0].points[0];
-                            // inc = Math.round((Math.random() - 0.5) * 100);
-                            // newVal = point.y + 10;
-                            newVal = parseFloat(parseFloat(data.data.result[0].last_consumption).toFixed(4));
-
-                            if (newVal < 0 || newVal > 200) {
-                                newVal = point.y - inc;
-                            }
-
-                            point.update(newVal);
-                        }
-                    })
-
-                }, 20000);
-
-            });
-        });
 
         $scope.callReport = function () {
 
@@ -473,6 +370,137 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
             });
 
             $(function () {
+                HomeService.getLastConsumtion().then(function (data) {
+                    $scope.lastUpdate = moment(data.data.result[0].date).format('D/M/Y, H:mm:ss');
+                    var gaugeOptions = {
+
+                        chart: {
+                            type: 'solidgauge'
+                        },
+
+                        title: null,
+
+                        pane: {
+                            center: ['50%', '80%'],
+                            size: '140%',
+                            startAngle: -90,
+                            endAngle: 90,
+                            background: {
+                                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#fff',
+                                innerRadius: '60%',
+                                outerRadius: '100%',
+                                shape: 'arc'
+                            }
+                        },
+
+                        tooltip: {
+                            enabled: false
+                        },
+
+                        // the value axis
+                        yAxis: {
+                            stops: [
+                                [0.1, '#55BF3B'], // green
+                                [0.5, '#DDDF0D'], // yellow
+                                [0.9, '#DF5353'] // red
+                            ],
+                            lineWidth: 0,
+                            minorTickInterval: null,
+                            tickAmount: 2,
+                            title: {
+                                y: -70
+                            },
+                            labels: {
+                                y: 16
+                            }
+                        },
+
+                        plotOptions: {
+                            solidgauge: {
+                                dataLabels: {
+                                    y: 5,
+                                    borderWidth: 0,
+                                    useHTML: true
+                                }
+                            }
+                        }
+                    };
+                    // Highcharts.setOptions(Highcharts.theme1);
+                    // The speed gauge
+                    var max = 1;
+                    var day = parseInt(window.localStorage.getItem("diff")) || 1;
+                    var kwh = parseFloat(window.localStorage.getItem("kwh")) || 1;
+                    if ((data.data.result[0].last_consumption / day) > kwh) {
+                        alert(data.data.result[0].last_consumption + "- 1 - " + day + " - " + kwh);
+
+                        max = 1;
+                    } else if (Math.round(data.data.result[0].last_consumption) / day < kwh) {
+
+                        max = 2;
+                    } else {
+
+                        max = 2;
+                    }
+                    $('#container-speed').highcharts(Highcharts.merge(gaugeOptions, {
+                        yAxis: {
+                            min: 0,
+                            max: (Math.round(data.data.result[0].last_consumption) * max),
+                            title: {
+                                text: 'KW/h consumido até último minuto'
+                            }
+                        },
+
+                        credits: {
+                            enabled: false
+                        },
+
+                        series: [{
+                            name: 'Speed',
+                            data: [parseFloat(parseFloat(data.data.result[0].last_consumption).toFixed(4))],
+                            dataLabels: {
+                                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                                ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                                '<span style="font-size:12px;color:silver">kW/h</span></div>'
+                            },
+                            tooltip: {
+                                valueSuffix: ' kW/h'
+                            }
+                        }]
+
+                    }));
+
+
+                    // Bring life to the dials
+                    setInterval(function () {
+                        // Speed
+                        HomeService.getLastConsumtion().then(function (data) {
+                            $scope.lastUpdate = moment(data.data.result[0].date).format('D/M/Y, H:mm:ss');
+                            var chart = $('#container-speed').highcharts(),
+                                point,
+                                newVal,
+                                inc, dataLabel;
+
+                            if (chart) {
+                                point = chart.series[0].points[0];
+                                // inc = Math.round((Math.random() - 0.5) * 100);
+                                // newVal = point.y + 10;
+                                newVal = parseFloat(parseFloat(data.data.result[0].last_consumption).toFixed(4));
+
+                                if (newVal < 0 || newVal > 200) {
+                                    newVal = point.y - inc;
+                                }
+
+                                point.update(newVal);
+                            }
+                        })
+
+                    }, 20000);
+
+                });
+            });
+
+
+            $(function () {
                 HomeService.getHistory().then(function (data) {
 
                     var arraySensor0 = [];
@@ -555,11 +583,19 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
 
 
         $(document).ready(function () {
+
+            $(document).ready(function () {
+                $('.tooltipped').tooltip({ delay: 50 });
+            });
             $scope.callReport();
             $('.brand-logo').sideNav({
                 menuWidth: 300,
                 edge: 'left',
                 closeOnClick: true
+            });
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15 // Creates a dropdown of 15 years to control year
             });
 
             $(".dropdown-button").dropdown();
