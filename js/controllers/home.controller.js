@@ -1,28 +1,20 @@
 App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location', 'md5', '$http', 'API',
     function ($scope, HomeService, UserService, $location, md5, $http, API) {
 
-        // HighchartsService.initializeChart($scope);
-        // HomeService.getHistory().then(function (data) {
-        //     $scope.history = data.data.result;
-        // }, function (err) {
-
-        // });
         if (window.localStorage.getItem('kwh') != undefined || window.localStorage.getItem('kwh') != null) {
             window.document.getElementById('forValue').classList.add('active');
         }
         window.document.getElementById('valueDate').value = '';
         window.document.getElementById('valueKwh').value = window.localStorage.getItem('kwh') || 0;
-
         $scope.sensor1 = {};
         $scope.sensor1.status = true;
-
         $scope.sensor2 = {};
         $scope.sensor2.status = true;
-
         $scope.message = {
             text: 'hello world!',
             time: new Date()
         };
+
         $scope.getClient = function () {
             var client = window.localStorage.getItem("client");
             var md5Email = md5.createHash((JSON.parse(client)).email);
@@ -263,9 +255,7 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
             maskColor: 'rgba(255,255,255,0.3)'
         };
 
-
         $scope.callReport = function () {
-
 
             $(function () {
                 HomeService.getHistory().then(function (data) {
@@ -446,8 +436,10 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
                     $('#container-speed').highcharts(Highcharts.merge(gaugeOptions, {
                         yAxis: {
                             min: 0,
-                            max: (parseInt(data.data.result[0].last_consumption * max)),
-                            tickInterval: (parseInt((data.data.result[0].last_consumption) * max) / 1000),
+                            // max: (parseInt(data.data.result[0].last_consumption * max)),
+                            max: (kwh * day + 1),
+                            // tickInterval: (parseInt((data.data.result[0].last_consumption) * max) / 1000),
+                            tickInterval: 1/1000,
                             title: {
                                 text: 'KW/h consumido até último minuto'
                             }
@@ -501,7 +493,6 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
 
                 });
             });
-
 
             $(function () {
                 HomeService.getHistory().then(function (data) {
@@ -582,20 +573,19 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
             });
         }
 
-
-
-
         $(document).ready(function () {
 
             $(document).ready(function () {
                 $('.tooltipped').tooltip({ delay: 50 });
             });
+
             $scope.callReport();
             $('.brand-logo').sideNav({
                 menuWidth: 300,
                 edge: 'left',
                 closeOnClick: true
             });
+
             $('.datepicker').pickadate({
                 selectMonths: true, // Creates a dropdown to control month
                 selectYears: 15 // Creates a dropdown of 15 years to control year
