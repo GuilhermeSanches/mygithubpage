@@ -48,22 +48,24 @@
 
         <div class="col l6">
             <div class="card">
-                <div style="min-width: 310px; height: 440px; margin: 0 auto">
-                    <div class="input-field col s4">
-                        <i class="material-icons prefix">date_range</i>
-                        <input type="date" class="datepicker">
-                        <label for="icon_prefix">Primeiro Período</label>
+                <form action="" name="report1">
+                    <div style="min-width: 310px; height: 440px; margin: 0 auto">
+                        <div class="input-field col s4">
+                            <i class="material-icons prefix">date_range</i>
+                            <input name="dateReport1" ng-model="report.date1" type="date" class="datepicker">
+                            <label for="icon_prefix">Primeiro Período</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <i class="material-icons prefix">date_range</i>
+                            <input name="dateReport2" ng-model="report.date2" type="date" class="datepicker">
+                            <label for="icon_telephone">Primeiro Período</label>
+                        </div>
+                        <div ng-click="getReport()" class="input-field col s4">
+                            <div><a class="waves-effect waves-light btn">Gerar</a></div>
+                        </div>
+                        <div id="container-report-1" style="height: 350px; min-width: 310px"></div>
                     </div>
-                    <div class="input-field col s4">
-                        <i class="material-icons prefix">date_range</i>
-                        <input type="date" class="datepicker">
-                        <label for="icon_telephone">Primeiro Período</label>
-                    </div>
-                    <div class="input-field col s4">
-                        <div><a class="waves-effect waves-light btn">Gerar</a></div>
-                    </div>
-                    <div id="container-report-1" style="height: 350px; min-width: 310px"></div>
-                </div>
+                </form>
                 <div class="card-content teal">
                     <span class="card-title activator white-text">Primeiro Período</span>
                     <p class="white-text">Selecione o primeiro período desejado</p>
@@ -72,22 +74,24 @@
         </div>
         <div class="col l6">
             <div class="card">
-                <div style="min-width: 310px; height: 440px; margin: 0 auto">
-                    <div class="input-field col s4">
-                        <i class="material-icons prefix">date_range</i>
-                        <input type="date" class="datepicker">
-                        <label for="icon_prefix">Primeiro Período</label>
+                <form action="" name="report2">
+                    <div style="min-width: 310px; height: 440px; margin: 0 auto">
+                        <div class="input-field col s4">
+                            <i class="material-icons prefix">date_range</i>
+                            <input name="dateReport3" type="date" class="datepicker">
+                            <label for="icon_prefix">Primeiro Período</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <i class="material-icons prefix">date_range</i>
+                            <input name="dateReport4" type="date" class="datepicker">
+                            <label for="icon_telephone">Primeiro Período</label>
+                        </div>
+                        <div ng-click="getReport2()" class="input-field col s4">
+                            <div><a class="waves-effect waves-light btn  deep-purple darken-2">Gerar</a></div>
+                        </div>
+                        <div id="container-report-2" style="height: 350px; min-width: 310px"></div>
                     </div>
-                    <div class="input-field col s4">
-                        <i class="material-icons prefix">date_range</i>
-                        <input type="date" class="datepicker">
-                        <label for="icon_telephone">Primeiro Período</label>
-                    </div>
-                    <div class="input-field col s4">
-                        <div><a class="waves-effect waves-light btn  deep-purple darken-2">Gerar</a></div>
-                    </div>
-                    <div id="container-report-2" style="height: 350px; min-width: 310px"></div>
-                </div>
+                </form>
                 <div class="card-content deep-purple darken-2">
                     <span class="card-title activator white-text">Segundo Período</span>
                     <p class="white-text">Selecione o segundo período desejado</p>

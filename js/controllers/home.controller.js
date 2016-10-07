@@ -361,185 +361,201 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
             });
         });
 
-        $(function () {
-            HomeService.getHistory().then(function (data) {
-
-                var dateNow = new Date();
-                var lastDateS1 = new Date(data.data.result[data.data.result.length - 1].date);
-                var lastDateS2 = new Date(data.data.result[data.data.result.length - 2].date);
-                var dateLimit = new Date(dateNow.setMinutes(dateNow.getMinutes() - 30));
-                $scope.sensor1.lastDate = moment(lastDateS1).format("D/M/Y, H:mm:ss");
-                $scope.sensor2.lastDate = moment(lastDateS2).format("D/M/Y, H:mm:ss");
-                $scope.lastUpdate30 = $scope.sensor1.lastDate > $scope.sensor2.lastDate ? $scope.sensor1.lastDate : $scope.sensor2.lastDate;
-                if (moment(lastDateS1).isAfter(dateLimit)) {
-                    $scope.sensor1.status = true;
-                } else {
-                    $scope.sensor1.status = false;
-                }
-                if (moment(lastDateS2).isAfter(dateLimit)) {
-                    $scope.sensor2.status = true;
-                } else {
-                    $scope.sensor2.status = false;
-                }
+        $scope.callReport = function () {
 
 
-                var array = [];
-                data.data.result.forEach(function (element, index) {
-                    var hour = new Date(element.date).getHours();
-                    var date = new Date(element.date).setHours(hour - 3);
-                    var hourLocale = new Date().getHours();
-                    if (moment(date).isAfter(new Date().setHours(hourLocale - 6))){
-                        if (array.length > 0) {
-                            if (date == array[array.length - 1][0]) {
-                                array[array.length - 1][1] += element.consumption;
-                            } else {
-                                var temp = [date, element.consumption];
-                                array.push(temp);
-                            }
-                        } else {
-                            var temp2 = [date, element.consumption];
-                            array.push(temp2);
-                        }
+            $(function () {
+                HomeService.getHistory().then(function (data) {
 
+                    var dateNow = new Date();
+                    var lastDateS1 = new Date(data.data.result[data.data.result.length - 1].date);
+                    var lastDateS2 = new Date(data.data.result[data.data.result.length - 2].date);
+                    var dateLimit = new Date(dateNow.setMinutes(dateNow.getMinutes() - 30));
+                    $scope.sensor1.lastDate = moment(lastDateS1).format("D/M/Y, H:mm:ss");
+                    $scope.sensor2.lastDate = moment(lastDateS2).format("D/M/Y, H:mm:ss");
+                    $scope.lastUpdate30 = $scope.sensor1.lastDate > $scope.sensor2.lastDate ? $scope.sensor1.lastDate : $scope.sensor2.lastDate;
+                    if (moment(lastDateS1).isAfter(dateLimit)) {
+                        $scope.sensor1.status = true;
+                    } else {
+                        $scope.sensor1.status = false;
                     }
-                    
+                    if (moment(lastDateS2).isAfter(dateLimit)) {
+                        $scope.sensor2.status = true;
+                    } else {
+                        $scope.sensor2.status = false;
+                    }
 
-                }, this);
-                // console.log(array);
-                $('#container').highcharts(Highcharts.merge(Highcharts.theme1, {
-                    chart: {
-                        zoomType: 'x'
-                    },
-                    title: {
-                        text: 'Consumo total mensal'
-                    },
-                    subtitle: {
-                        text: document.ontouchstart === undefined ?
-                            'Verifique seu consumo desde o início de utilização do sistema' : 'Consumo mensal'
-                    },
-                    xAxis: {
-                        type: 'datetime'
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'KW/h'
-                        }
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    plotOptions: {
-                        area: {
-                            fillColor: {
-                                linearGradient: {
-                                    x1: 0,
-                                    y1: 0,
-                                    x2: 0,
-                                    y2: 1
-                                },
-                                stops: [
-                                    [0, Highcharts.getOptions().colors[0]],
-                                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                                ]
-                            },
-                            marker: {
-                                radius: 2
-                            },
-                            lineWidth: 1,
-                            states: {
-                                hover: {
-                                    lineWidth: 1
+
+                    var array = [];
+                    data.data.result.forEach(function (element, index) {
+                        var hour = new Date(element.date).getHours();
+                        var date = new Date(element.date).setHours(hour);
+                        var hourLocale = new Date().getHours();
+                        if (moment(date).isAfter(new Date().setHours(hourLocale - 6))) {
+                            if (array.length > 0) {
+                                if (date == array[array.length - 1][0]) {
+                                    array[array.length - 1][1] += element.consumption;
+                                } else {
+                                    var temp = [date, element.consumption];
+                                    array.push(temp);
                                 }
-                            },
-                            threshold: null
+                            } else {
+                                var temp2 = [date, element.consumption];
+                                array.push(temp2);
+                            }
+
                         }
-                    },
 
-                    series: [{
-                        type: 'area',
-                        name: 'KW/h consumidos',
-                        data: array
-                    }]
-                }));
-            });
-        });
 
-        $(function () {
-            HomeService.getHistory().then(function (data) {
-
-                var arraySensor0 = [];
-                var arraySensor1 = [];
-
-                data.data.result.forEach(function (element, index) {
-
-                    var hour = new Date(element.date).getHours();
-                    var date = new Date(element.date).setHours(hour - 3);
-
-                    var hourLocale = new Date().getHours();
-                    if (moment(date).isBetween(new Date().setHours(hourLocale - 6), new Date(), 'hour')) {
-                        if (element.sensors_id === 0) {
-                            var temp2;
-                            temp2 = [date, (element.consumption - data.data.result[index - 2].consumption)];
-                            arraySensor0.push(temp2);
-                        } else {
-                            var temp;
-                            temp = [date, (element.consumption - data.data.result[index - 2].consumption)];
-                            arraySensor1.push(temp);
+                    }, this);
+                    // console.log(array);
+                    Highcharts.setOptions({
+                        global: {
+                            useUTC: false
                         }
-                    }
-
-                }, this);
-
-                $('#container2').highcharts({
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: 'Consumo por sensor'
-                    },
-                    subtitle: {
-                        text: 'Exibe o consumo medido por cada sensor a cada 30 minutos'
-                    },
-                    xAxis: {
-                        type: "datetime",
-                        crosshair: true
-                    },
-                    yAxis: {
-                        min: 0,
+                    });
+                    $('#container').highcharts(Highcharts.merge(Highcharts.theme1, {
+                        chart: {
+                            zoomType: 'x'
+                        },
                         title: {
-                            text: 'Consumo (KW/h)'
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                        '<td style="padding:0"><b>{point.y:.3f} kw/h </b></td></tr>',
-                        footerFormat: '</table>',
-                        shared: true,
-                        useHTML: true
-                    },
-                    plotOptions: {
-                        column: {
-                            pointPadding: 0.2,
-                            borderWidth: 0
-                        }
-                    },
-                    series: [{
-                        name: 'Chuveiro e cozinha',
-                        data: arraySensor0
+                            text: 'Consumo total mensal'
+                        },
+                        subtitle: {
+                            text: document.ontouchstart === undefined ?
+                                'Verifique seu consumo desde o início de utilização do sistema' : 'Consumo mensal'
+                        },
+                        xAxis: {
+                            type: 'datetime'
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'KW/h'
+                            }
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            area: {
+                                fillColor: {
+                                    linearGradient: {
+                                        x1: 0,
+                                        y1: 0,
+                                        x2: 0,
+                                        y2: 1
+                                    },
+                                    stops: [
+                                        [0, Highcharts.getOptions().colors[0]],
+                                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                    ]
+                                },
+                                marker: {
+                                    radius: 2
+                                },
+                                lineWidth: 1,
+                                states: {
+                                    hover: {
+                                        lineWidth: 1
+                                    }
+                                },
+                                threshold: null
+                            }
+                        },
 
-                    }, {
-                            name: 'Lâmpadas e tomadas',
-                            data: arraySensor1
-
+                        series: [{
+                            type: 'area',
+                            name: 'KW/h consumidos',
+                            data: array
                         }]
+                    }));
                 });
             });
 
-        });
+            $(function () {
+                HomeService.getHistory().then(function (data) {
+
+                    var arraySensor0 = [];
+                    var arraySensor1 = [];
+
+                    data.data.result.forEach(function (element, index) {
+
+                        var hour = new Date(element.date).getHours();
+                        var date = new Date(element.date).setHours(hour);
+
+                        var hourLocale = new Date().getHours();
+                        if (moment(date).isBetween(new Date().setHours(hourLocale - 6), new Date(), 'hour', [])) {
+                            if (element.sensors_id === 0) {
+                                var temp2;
+                                temp2 = [date, (element.consumption - data.data.result[index - 2].consumption)];
+                                arraySensor0.push(temp2);
+                            } else {
+                                var temp;
+                                temp = [date, (element.consumption - data.data.result[index - 2].consumption)];
+                                arraySensor1.push(temp);
+                            }
+                        }
+
+                    }, this);
+                    Highcharts.setOptions({
+                        global: {
+                            useUTC: false
+                        }
+                    });
+                    $('#container2').highcharts({
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Consumo por sensor'
+                        },
+                        subtitle: {
+                            text: 'Exibe o consumo medido por cada sensor a cada 30 minutos'
+                        },
+                        xAxis: {
+                            type: "datetime",
+                            crosshair: true
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Consumo (KW/h)'
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.3f} kw/h </b></td></tr>',
+                            footerFormat: '</table>',
+                            shared: true,
+                            useHTML: true
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series: [{
+                            name: 'Chuveiro e cozinha',
+                            data: arraySensor0
+
+                        }, {
+                                name: 'Lâmpadas e tomadas',
+                                data: arraySensor1
+
+                            }]
+                    });
+                });
+
+            });
+        }
+
+
+
 
         $(document).ready(function () {
-
+            $scope.callReport();
             $('.brand-logo').sideNav({
                 menuWidth: 300,
                 edge: 'left',
