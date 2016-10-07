@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "version": "0.0.1",
+  "name": "energymonitor",
+  "version": "1.0.0",
   "description": "Painel de gerenciamento de consumo de energia elétrica residencial",
   "main": "index.js",
   "scripts": {
