@@ -7,6 +7,12 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
         // }, function (err) {
 
         // });
+        if (window.localStorage.getItem('kwh') != undefined || window.localStorage.getItem('kwh') != null) {
+            window.document.getElementById('forValue').classList.add('active');
+        }
+        window.document.getElementById('valueDate').value = '';
+        window.document.getElementById('valueKwh').value = window.localStorage.getItem('kwh') || 0;
+
         $scope.sensor1 = {};
         $scope.sensor1.status = true;
 
@@ -381,7 +387,7 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
                         title: null,
 
                         pane: {
-                            center: ['50%', '80%'],
+                            center: ['50%', '90%'],
                             size: '140%',
                             startAngle: -90,
                             endAngle: 90,
@@ -408,10 +414,10 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
                             minorTickInterval: null,
                             tickAmount: 2,
                             title: {
-                                y: -70
+                                y: -120
                             },
                             labels: {
-                                y: 16
+                                y: 25
                             }
                         },
 
@@ -433,15 +439,15 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
                     if ((data.data.result[0].last_consumption / day) > kwh) {
                         max = 1.15;
                     } else if (Math.round(data.data.result[0].last_consumption) / day < kwh) {
-                        max = 1.4;
+                        max = 1.5;
                     } else {
                         max = 1.7;
                     }
                     $('#container-speed').highcharts(Highcharts.merge(gaugeOptions, {
                         yAxis: {
                             min: 0,
-                            max: (Math.round(data.data.result[0].last_consumption) * max),
-                            tickInterval: ((Math.round(data.data.result[0].last_consumption) * max) / 1000),
+                            max: (parseInt(data.data.result[0].last_consumption * max)),
+                            tickInterval: (parseInt((data.data.result[0].last_consumption) * max) / 1000),
                             title: {
                                 text: 'KW/h consumido até último minuto'
                             }
