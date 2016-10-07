@@ -391,7 +391,7 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
                         var hour = new Date(element.date).getHours();
                         var date = new Date(element.date).setHours(hour);
                         var hourLocale = new Date().getHours();
-                        if (moment(date).isAfter(new Date().setHours(hourLocale - 6))) {
+                        if (moment(date).isAfter(new Date().setHours(hourLocale - 24))) {
                             if (array.length > 0) {
                                 if (date == array[array.length - 1][0]) {
                                     array[array.length - 1][1] += element.consumption;
