@@ -431,20 +431,17 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
                     var day = parseInt(window.localStorage.getItem("diff")) || 1;
                     var kwh = parseFloat(window.localStorage.getItem("kwh")) || 1;
                     if ((data.data.result[0].last_consumption / day) > kwh) {
-                        alert(data.data.result[0].last_consumption + "- 1 - " + day + " - " + kwh);
-
-                        max = 1;
+                        max = 1.15;
                     } else if (Math.round(data.data.result[0].last_consumption) / day < kwh) {
-
-                        max = 2;
+                        max = 1.4;
                     } else {
-
-                        max = 2;
+                        max = 1.7;
                     }
                     $('#container-speed').highcharts(Highcharts.merge(gaugeOptions, {
                         yAxis: {
                             min: 0,
                             max: (Math.round(data.data.result[0].last_consumption) * max),
+                            tickInterval: ((Math.round(data.data.result[0].last_consumption) * max) / 1000),
                             title: {
                                 text: 'KW/h consumido até último minuto'
                             }
