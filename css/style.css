@@ -92,6 +92,6 @@
     color: #26a69a;
 }
 .tabs .indicator {
-    color: white;
+    color: white !important;
     background-color: white !important;
 }
