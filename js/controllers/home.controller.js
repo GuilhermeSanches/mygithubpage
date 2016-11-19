@@ -431,14 +431,11 @@ App.controller('HomeCtrl', ['$scope', 'HomeService', 'UserService', '$location',
                     var day = parseInt(window.localStorage.getItem("diff")) || 1;
                     var kwh = parseFloat(window.localStorage.getItem("kwh")) || 1;
                     if ((data.data.result[0].last_consumption / day) > kwh) {
-                        alert(data.data.result[0].last_consumption + "- 1 - " + day + " - " + kwh);
-
+                        // alert(data.data.result[0].last_consumption + "- 1 - " + day + " - " + kwh);
                         max = 1;
                     } else if (Math.round(data.data.result[0].last_consumption) / day < kwh) {
-
                         max = 2;
                     } else {
-
                         max = 2;
                     }
                     $('#container-speed').highcharts(Highcharts.merge(gaugeOptions, {

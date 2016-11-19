@@ -1,0 +1,184 @@
+<!--
+    Inicio Menu Sidenav
+-->
+<nav class="teal darken-2">
+    <div class="nav-wrapper">
+        <ul class="left">
+            <li><a data-activates="slide-out-invoice" class="brand-logo"><i class="material-icons">menu</i></a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#/" ng-click="reload()"><i class="material-icons">refresh</i></a></li>
+            <li><a class="dropdown-button" data-activates="dropdown1"><i class="material-icons right">more_vert</i></a></li>
+        </ul>
+    </div>
+</nav>
+<ul id="slide-out-invoice" class="side-nav">
+    <li>
+        <div class="userView">
+            <img class="background" src="imgs/menu_drawer.jpg">
+            <a href="#!user"><img class="circle" ng-src="{{user.urlAvatar}}"></a>
+            <a href="#!name"><span class="white-text name">{{user.name}}</span></a>
+            <a href="#!email"><span class="white-text email">{{user.email}}</span></a>
+        </div>
+    </li>
+    <li><a href="#/"><i class="material-icons">home</i>Início</a></li>
+    <li><a href="#/invoice"><i class="material-icons">attach_money</i>Fatura parcial</a></li>
+    <li><a href="#/report"><i class="material-icons">date_range</i>Comparador de períodos</a></li>
+    <li><a href="#!"><i class="material-icons">remove_red_eye</i>Fique de olho!</a></li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li><a class="subheader">Opções</a></li>
+    <li><a class="waves-effect" href="#!"><i class="material-icons">power_settings_new</i>Sair</a></li>
+</ul>
+
+<ul id="dropdown1" class="dropdown-content">
+    <li><a href="#/">Ajuda</a></li>
+    <li><a href="#/">Contato</a></li>
+    <li class="divider"></li>
+    <li><a ng-click="logout()">Sair</a></li>
+</ul>
+
+<!--
+    Término Menu Sidenav
+-->
+<div class="col s12 l12">
+
+    <div class="row">
+
+        <div class="col l6">
+            <div class="card">
+                <form action="" name="invoice">
+                    <div style="min-width: 310px; height: 440px; margin: 0 auto">
+                        <div class="input-field col s3">
+                            <i class="material-icons prefix">date_range</i>
+                            <input name="dateReport1" ng-model="report.date1" type="date" class="datepicker">
+                            <label for="icon_prefix">Início</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <i class="material-icons prefix">date_range</i>
+                            <input name="dateReport2" ng-model="report.date2" type="date" class="datepicker">
+                            <label for="icon_telephone">Término</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <select name="bandeira" ng-model="report.bandeira">
+                                <option value="" disabled selected>Escolha abaixo</option>
+                                <option value="1">Verde</option>
+                                <option value="2">Amarela</option>
+                                <option value="3">Vermelha 1</option>
+                                <option value="4">Vermelha 2</option>
+                            </select>
+                            <label>Bandeira</label>
+                        </div>
+                        <div class="col s3">
+                            <label for="">Baixa renda ?
+                                <br><br>
+                            <div class="switch">
+                                <label>
+                                        Não<input type="checkbox" name="baixa_renda">
+                                        <span class="lever"></span>
+                                        Sim
+                                </label>
+                        </div>
+                        </label>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div style="height: 350px; min-width: 310px">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th data-field="id">kWh</th>
+                                    <th data-field="date">Inicio</th>
+                                    <th data-field="date">Término</th>
+                                    <th data-field="price">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{totkwh}}</td>
+                                    <td>{{date1}}</td>
+                                    <td>{{date2}}</td>
+                                    <td>R$ {{tot}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+            </form>
+            <div ng-click="getInvoice(report)" class="input-field col s3">
+                <div><a class="waves-effect waves-light red btn ">Gerar</a></div>
+            </div>
+            <div class="card-content teal">
+                <span class="card-title activator white-text">Gerador de fatura parcial</span>
+                <p class="white-text">Selecione o período desejado e escolha o valor de acordo com sua classe</p>
+            </div>
+        </div>
+    </div>
+    <div class="col l6">
+        <div class="card">
+            <div style="height: 440px; margin: 0 auto">
+                <div>
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th data-field="id">Classe</th>
+                                <th data-field="name"><img src="../imgs/Verde.png" height="36" width="36" alt=""></th>
+                                <th data-field="name"><img src="../imgs/Amarelo.png" height="36" width="36" alt=""></th>
+                                <th data-field="name"><img src="../imgs/Vermelho.png" height="36" width="36" alt=""> 1</th>
+                                <th data-field="name"><img src="../imgs/Vermelho.png" height="36" width="36" alt=""> 2</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>B1 - Residencial Normal</td>
+                                <td>R$ 0,53122</td>
+                                <td>​R$ 0,54622</td>
+                                <td>R$ ​0,56122</td>
+                                <td>R$ ​​0,57622</td>
+                            </tr>
+                            <tr>
+                                <td>B1 - Residencial Baixa Renda (
+                                    < 30kWh)</td>
+                                        <td>R$ 0,18247</td>
+                                        <td>R$ 0,18772</td>
+                                        <td>R$ 0,19297</td>
+                                        <td>R$ ​0​,19822</td>
+                            </tr>
+                            <tr>
+                                <td>B1 - Residencial Baixa Renda (31 a 100kWh)</td>
+                                <td>R$ 0,31280</td>
+                                <td>R$ 0,32180</td>
+                                <td>R$ 0,33080</td>
+                                <td>R$ 0,33980</td>
+                            </tr>
+                            <tr>
+                                <td>B1 - Residencial Baixa Renda (101 a 220kWh)</td>
+                                <td>R$ 0,46921</td>
+                                <td>R$ 0,48271</td>
+                                <td>R$ 0,49621</td>
+                                <td>R$ 0,50971</td>
+                            </tr>
+                            <tr>
+                                <td>B1 - Residencial Baixa Renda (> 221kWh)</td>
+                                <td>R$ 0,52134</td>
+                                <td>R$ 0,53634</td>
+                                <td>R$ 0,55134</td>
+                                <td>R$ 0,56634</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-content teal">
+                <span class="card-title activator white-text">Bandeira tarifária</span>
+                <p class="white-text">Verifique o valor do kWh por bandeira aplicados</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

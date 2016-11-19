@@ -17,6 +17,12 @@ App.config(function ($routeProvider, $httpProvider, $mdThemingProvider) {
             access: { requiredAuthentication: true }
         })
 
+        .when('/invoice', {
+            templateUrl: 'views/partialInvoice.html',
+            controller: 'InvoiceCtrl',
+            access: { requiredAuthentication: true }
+        })
+
         .when('/login', {
             templateUrl: 'views/login.html',
             controller: 'LoginCtrl',
