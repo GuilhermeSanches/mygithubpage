@@ -45,6 +45,7 @@ App.controller('InvoiceCtrl', ['$scope', 'md5', 'HomeService', function ($scope,
                 if (moment(date).isBetween(date3, date4, 'days', [])) {
                     var temp2;
                     temp2 =  (element.consumption - (data.data.result[index - 2] ? data.data.result[index - 2].consumption : 0));
+                    if(temp2 < 0) temp2 = 0;
                     tot+=(temp2);
                 }
             }, this);
