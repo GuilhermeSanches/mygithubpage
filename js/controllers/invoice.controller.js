@@ -54,55 +54,55 @@ App.controller('InvoiceCtrl', ['$scope', 'md5', 'HomeService', function ($scope,
                 $scope.tot = tot*bandeiras[bandeira-1];
            }else{               
                    switch (bandeira) {
-                       case 1 && $scope.tot <= 30.00:
+                       case "1" && $scope.tot <= 30.00:
                           $scope.tot = tot*0.18247;
                            break;
-                       case 1 &&  $scope.tot >= 31 &&  $scope.tot <= 100.99:
+                       case "1" &&  $scope.tot >= 31 &&  $scope.tot <= 100.99:
                            $scope.tot = tot*0.31280;
                            break;
-                       case  1 &&  $scope.tot >= 101 &&  $scope.tot <= 220.99:
+                       case  "1" &&  $scope.tot >= 101 &&  $scope.tot <= 220.99:
                            $scope.tot = tot*0.46921;
                            break;
-                       case 1 &&  $scope.tot >= 221:
+                       case "1" &&  $scope.tot >= 221:
                            $scope.tot = tot*0.52134;
                            break;
 
-                      case 2 && $scope.tot <= 30.00:
+                      case "2" && $scope.tot <= 30.00:
                           $scope.tot = tot*0.18772;
                            break;
-                       case 2 &&  $scope.tot >= 31 &&  $scope.tot <= 100.99:
+                       case "2" &&  $scope.tot >= 31 &&  $scope.tot <= 100.99:
                            $scope.tot = tot*0.32180;
                            break;
-                       case 2 &&  $scope.tot >= 101 &&  $scope.tot <= 220.99:
+                       case "2" &&  $scope.tot >= 101 &&  $scope.tot <= 220.99:
                            $scope.tot = tot*0.48271;
                            break;
-                       case 2 &&  $scope.tot >= 221:
+                       case "2" &&  $scope.tot >= 221:
                            $scope.tot = tot*0.53634;
                            break;
 
-                      case 3 && $scope.tot <= 30.00:
+                      case "3" && $scope.tot <= 30.00:
                           $scope.tot = tot*0.19297;
                            break;
-                       case 3 &&  $scope.tot >= 31 &&  $scope.tot <= 100.99:
+                       case "3" &&  $scope.tot >= 31 &&  $scope.tot <= 100.99:
                            $scope.tot = tot*0.33080;
                            break;
-                       case 3 &&  $scope.tot >= 101 &&  $scope.tot <= 220.99:
+                       case "3" &&  $scope.tot >= 101 &&  $scope.tot <= 220.99:
                            $scope.tot = tot*0.49621;
                            break;
-                       case 3 &&  $scope.tot >= 221:
+                       case "3" &&  $scope.tot >= 221:
                            $scope.tot = tot*0.55134;
                            break;
 
-                      case 4 && $scope.tot <= 30.00:
+                      case "4" && $scope.tot <= 30.00:
                           $scope.tot = tot*0.19822;
                            break;
-                       case 4 &&  $scope.tot >= 31 &&  $scope.tot <= 100.99:
+                       case "4" &&  $scope.tot >= 31 &&  $scope.tot <= 100.99:
                            $scope.tot = tot*0.33980;
                            break;
-                       case 4 &&  $scope.tot >= 101 &&  $scope.tot <= 220.99:
+                       case "4" &&  $scope.tot >= 101 &&  $scope.tot <= 220.99:
                            $scope.tot = tot*0.50971;
                            break;
-                       case 4 &&  $scope.tot >= 221:
+                       case "4" &&  $scope.tot >= 221:
                            $scope.tot = tot*0.56634;
                            break;                           
                    }
